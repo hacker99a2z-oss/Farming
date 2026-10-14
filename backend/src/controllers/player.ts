@@ -21,6 +21,7 @@ import {
   tonNanoForUsd,
   type CropKey,
   type PlayerView,
+  type Daily,
 } from '../utils/rules';
 import { getTonUsd, MERCHANT_ADDRESS, findPayment, normalizeAddress } from '../utils/ton';
 import { kickPayouts } from '../utils/payout';
@@ -34,7 +35,7 @@ type PlayerDoc = {
   seeds?: Partial<Record<CropKey, number>>;
   crops: Record<CropKey, number>;
   fields: Record<CropKey, unknown>;
-  daily?: { streak: number; lastDay: number | null };
+  daily?: { streak: number; lastDay: string | null };
   referredBy: number | null;
   referralCount: number;
   referralEarnedCents: number;
@@ -60,12 +61,17 @@ async function view(db: Awaited<ReturnType<typeof ctx>>['db'], p: PlayerDoc): Pr
     .limit(WITHDRAWAL_HISTORY_LIMIT)
     .toArray();
   const now = Date.now();
+  // Convert daily lastDay from number to string if needed
+  const daily: Daily | undefined = p.daily ? {
+    streak: p.daily.streak,
+    lastDay: typeof p.daily.lastDay === 'number' ? dayKey(p.daily.lastDay) : p.daily.lastDay
+  } : undefined;
   return {
     balanceCents: p.balanceCents,
     seeds: Object.fromEntries(CROP_KEYS.map((k) => [k, p.seeds?.[k] ?? 0])) as Record<CropKey, number>,
     crops: p.crops,
     fields: Object.fromEntries(CROP_KEYS.map((k) => [k, parts(p, k)])) as Record<CropKey, any>,
-    daily: dailyStatus(p.daily, now),
+    daily: dailyStatus(daily, now),
     referralCount: p.referralCount,
     referralEarnedCents: p.referralEarnedCents,
     nextAdAt: p.lastAdAt ? p.lastAdAt.getTime() + AD_COOLDOWN_MS : null,
@@ -108,7 +114,7 @@ export const loadPlayer = async (req: Request, res: Response) => {
       seeds: Object.fromEntries(CROP_KEYS.map((k) => [k, 0])) as Partial<Record<CropKey, number>>,
       crops: Object.fromEntries(CROP_KEYS.map((k) => [k, 0])) as Record<CropKey, number>,
       fields: Object.fromEntries(CROP_KEYS.map((k) => [k, fieldParts(k)])) as Record<CropKey, unknown>,
-      daily: { streak: 0, lastDay: null },
+      daily: { streak: 0, lastDay: dayKey(Date.now()) },
       referredBy,
       referralCount: 0,
       referralEarnedCents: 0,
@@ -200,7 +206,12 @@ export const claimDaily = async (req: Request, res: Response) => {
     const p = await players.findOne({ _id: tg.id });
     if (!p) throw new Error('Player not found');
     const now = Date.now();
-    const st = dailyStatus(p.daily, now);
+    // Convert daily lastDay from number to string if needed
+    const daily: Daily | undefined = p.daily ? {
+      streak: p.daily.streak,
+      lastDay: typeof p.daily.lastDay === 'number' ? dayKey(p.daily.lastDay) : p.daily.lastDay
+    } : undefined;
+    const st = dailyStatus(daily, now);
     if (!st.canClaim) throw new Error('Already claimed today — come back tomorrow');
     const day = st.done + 1;
     const crop = DAILY_REWARDS[day - 1]!;
