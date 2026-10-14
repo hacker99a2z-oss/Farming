@@ -6,7 +6,7 @@
 import { Address, internal, toNano, beginCell, SendMode } from "@ton/core";
 import { TonClient, WalletContractV4, WalletContractV5R1 } from "@ton/ton";
 import { mnemonicToPrivateKey } from "@ton/crypto";
-import { getDb } from "./db";
+import { getDb } from "./db.js";
 
 type Wd = {
   _id: string;
