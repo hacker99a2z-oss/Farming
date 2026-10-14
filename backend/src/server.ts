@@ -16,7 +16,7 @@ app.get('/health', (req, res) => {
 });
 
 // API routes
-import playerRoutes from './routes/player';
+import playerRoutes from './routes/player.js';
 app.use('/api/player', playerRoutes);
 
 app.listen(PORT, () => {
