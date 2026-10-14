@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { getDb } from '../utils/db';
-import { verifyInitData } from '../utils/tg';
+import { getDb } from '../utils/db.js';
+import { verifyInitData } from '../utils/tg.js';
 import {
   CROP_KEYS,
   WITHDRAWAL_HISTORY_LIMIT,
@@ -22,9 +22,9 @@ import {
   type CropKey,
   type PlayerView,
   type Daily,
-} from '../utils/rules';
-import { getTonUsd, MERCHANT_ADDRESS, findPayment, normalizeAddress } from '../utils/ton';
-import { kickPayouts } from '../utils/payout';
+} from '../utils/rules.js';
+import { getTonUsd, MERCHANT_ADDRESS, findPayment, normalizeAddress } from '../utils/ton.js';
+import { kickPayouts } from '../utils/payout.js';
 
 type PlayerDoc = {
   _id: number;
