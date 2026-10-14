@@ -1,0 +1,190 @@
+@import "tailwindcss" source(none);
+@import "tw-animate-css";
+
+@theme inline {
+  --font-display: "Fredoka", ui-rounded, system-ui, sans-serif;
+  --font-sans: "Nunito", ui-rounded, system-ui, sans-serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-water: var(--water);
+  --color-water-foreground: var(--water-foreground);
+  --color-soil: var(--soil);
+  --color-soil-dark: var(--soil-dark);
+  --color-gold: var(--gold);
+  --color-gold-foreground: var(--gold-foreground);
+  --color-leaf: var(--leaf);
+}
+
+:root {
+  --radius: 1rem;
+  --background: oklch(0.95 0.045 120);
+  --foreground: oklch(0.27 0.06 140);
+  --card: oklch(0.99 0.015 95);
+  --card-foreground: oklch(0.27 0.06 140);
+  --popover: oklch(0.99 0.015 95);
+  --popover-foreground: oklch(0.27 0.06 140);
+  --primary: oklch(0.58 0.16 140);
+  --primary-foreground: oklch(0.99 0.01 120);
+  --secondary: oklch(0.93 0.05 95);
+  --secondary-foreground: oklch(0.32 0.07 70);
+  --muted: oklch(0.93 0.03 110);
+  --muted-foreground: oklch(0.5 0.05 130);
+  --accent: oklch(0.85 0.15 85);
+  --accent-foreground: oklch(0.3 0.07 60);
+  --destructive: oklch(0.6 0.21 28);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(0.86 0.05 110);
+  --input: oklch(0.86 0.05 110);
+  --ring: oklch(0.58 0.16 140);
+  --water: oklch(0.68 0.14 235);
+  --water-foreground: oklch(0.99 0.01 235);
+  --soil: oklch(0.55 0.09 55);
+  --soil-dark: oklch(0.42 0.08 50);
+  --gold: oklch(0.82 0.16 82);
+  --gold-foreground: oklch(0.32 0.08 60);
+  --leaf: oklch(0.68 0.19 135);
+
+  --gradient-sky: linear-gradient(180deg, oklch(0.88 0.08 220) 0%, oklch(0.94 0.06 130) 38%, oklch(0.9 0.09 130) 100%);
+  --gradient-primary: linear-gradient(180deg, oklch(0.66 0.17 138), oklch(0.52 0.15 142));
+  --gradient-gold: linear-gradient(180deg, oklch(0.88 0.15 88), oklch(0.76 0.16 70));
+  --gradient-water: linear-gradient(180deg, oklch(0.76 0.13 225), oklch(0.6 0.15 240));
+  --gradient-soil: linear-gradient(180deg, oklch(0.58 0.09 55), oklch(0.46 0.08 50));
+  --shadow-pop: 0 4px 0 0 oklch(0.4 0.1 140 / 0.35);
+  --shadow-card: 0 10px 30px -12px oklch(0.35 0.08 140 / 0.35);
+}
+
+* {
+  border-color: var(--color-border);
+}
+
+html, body {
+  font-family: var(--font-sans);
+}
+
+body {
+  background: var(--gradient-sky);
+  background-attachment: fixed;
+  color: var(--color-foreground);
+  min-height: 100vh;
+  -webkit-tap-highlight-color: transparent;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+}
+
+.card-farm {
+  background: var(--color-card);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-card);
+  border: 2px solid oklch(1 0 0 / 0.7);
+}
+
+.btn-game {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  border-radius: var(--radius-xl);
+  padding: 0.65rem 1rem;
+  background: var(--gradient-primary);
+  color: var(--color-primary-foreground);
+  box-shadow: var(--shadow-pop);
+  transition: transform 0.1s, box-shadow 0.1s, opacity 0.2s;
+}
+
+.btn-game:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 0 oklch(0.4 0.1 140 / 0.35);
+}
+
+.btn-game:disabled {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.btn-gold {
+  background: var(--gradient-gold);
+  color: var(--color-gold-foreground);
+}
+
+.btn-water {
+  background: var(--gradient-water);
+  color: var(--color-water-foreground);
+}
+
+.bg-soil-gradient {
+  background: var(--gradient-soil);
+}
+
+.bg-water-gradient {
+  background: var(--gradient-water);
+}
+
+.bg-gold-gradient {
+  background: var(--gradient-gold);
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-4deg); }
+  50% { transform: rotate(4deg); }
+}
+
+@keyframes pop-in {
+  0% { transform: scale(0.4); opacity: 0; }
+  70% { transform: scale(1.15); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes float-up {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-40px); opacity: 0; }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.animate-sway {
+  animation: sway 2.4s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+.animate-pop-in {
+  animation: pop-in 0.4s ease-out both;
+}
+
+.animate-float-up {
+  animation: float-up 0.8s ease-out forwards;
+}
+
+.animate-shake {
+  animation: shake 0.3s ease-in-out;
+}
