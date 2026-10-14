@@ -9,7 +9,7 @@ import {
   getGramQuote,
   createSeedOrder,
   confirmSeedOrder,
-} from '../controllers/player';
+} from '../controllers/player.js';
 
 const router = Router();
 
