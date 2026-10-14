@@ -205,7 +205,7 @@ export const claimDaily = async (req: Request, res: Response) => {
     const day = st.done + 1;
     const crop = DAILY_REWARDS[day - 1]!;
     const resUpdate = await players.findOneAndUpdate(
-      { _id: tg.id, 'daily.lastDay': p.daily?.lastDay ?? null } as never,
+      { _id: tg.id },
       { $set: { daily: { streak: day, lastDay: dayKey(now) } }, $inc: { [`seeds.${crop}`]: DAILY_SEEDS } },
       { returnDocument: 'after' },
     );
